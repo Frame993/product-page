@@ -5,3 +5,8 @@
 body {
   @apply text-[16px] font-kumbh;
 }
+
+#root {
+  @apply md:w-[1440px] mx-auto w-[375px] min-h-[100vh];
+}
+
