@@ -6,6 +6,7 @@ export interface Products {
     price:           number;
     discount:        number;
     images:          Images;
+    quantity:        number;
 }
 
 export interface Images {
