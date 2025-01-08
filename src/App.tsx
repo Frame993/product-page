@@ -11,7 +11,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="flex flex-col my-16 mx-auto px-6">
+      <main className="flex flex-col md:my-16 mb-12 mx-auto md:px-6">
         {products.map((product) => (
           <ProductDetails key={product.id} product={product} />
         ))}

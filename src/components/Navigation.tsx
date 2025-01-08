@@ -1,7 +1,7 @@
 
 export default function Navigation() {
   return (
-    <nav className="flex text-darkGrayishBlue">
+    <nav className="text-darkGrayishBlue hidden md:flex">
       <ul className="flex items-center gap-8">
         <a href="">
           <li>Collection</li>
