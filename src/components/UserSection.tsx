@@ -1,6 +1,6 @@
 import Cart from "../../public/icon-cart.svg";
 import Avatar from "../../public/image-avatar.png";
-import { useCart } from "../store/cart";
+import { useCart } from "../stores/cart-store";
 
 export default function UserSection() {
   const cart = useCart((state) => state.cart);

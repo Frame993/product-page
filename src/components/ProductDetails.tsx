@@ -2,7 +2,7 @@ import Cart from "../../public/icon-cart.svg";
 import { createPortal } from "react-dom";
 import ImageModal from "./ImageModal";
 import { Products } from "../interfaces/products";
-import { useCart } from "../store/cart";
+import { useCart } from "../stores/cart-store";
 
 import { useState } from "react";
 
@@ -18,7 +18,10 @@ export default function ProductDetails({ product }: { product: Products }) {
 
   return (
     <section id={`${product.id}`} className="flex flex-col md:flex-row gap-8">
-      <section key={product.id} className="grid md:grid-cols-2 grid-cols-1 gap-8 md:gap-24 md:px-24">
+      <section
+        key={product.id}
+        className="grid md:grid-cols-2 grid-cols-1 gap-8 md:gap-24 md:px-24"
+      >
         <article className="flex flex-col gap-6 md:items-end md:w-full w-fit">
           <button
             onClick={() => setModal(true)}
@@ -32,15 +35,20 @@ export default function ProductDetails({ product }: { product: Products }) {
           </button>
           <ul className="md:flex hidden flex-wrap justify-between gap-6">
             {product.images.desktop.map((img, index) => (
-              <li
+              <button
                 key={img}
                 onClick={() => setImage(index)}
-                className="overflow-hidden rounded-xl flex place-items-center"
+                className={`${
+                  image === index && "outline outline-2 outline-orange"
+                } overflow-hidden rounded-xl flex place-items-center`}
               >
-                <button>
-                  <img src={img} alt="product_img" width={75} />
-                </button>
-              </li>
+                <img
+                  src={img}
+                  alt="product_img"
+                  width={75}
+                  className={`${image === index && "opacity-50"}`}
+                />
+              </button>
             ))}
           </ul>
         </article>
@@ -69,9 +77,21 @@ export default function ProductDetails({ product }: { product: Products }) {
           </div>
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex items-center gap-1 bg-lightGrayishBlue rounded-lg h-full w-full md:w-auto">
-              <button onClick={() => decrease(1)} className="md:w-fit w-24 px-4 py-2 font-bold text-orange text-2xl md:text-lg">-</button>
-              <span className="md:w-6 w-full flex items-center justify-center px-4 md:py-3 py-5 font-bold md:text-sm text-lg">{counter}</span>
-              <button onClick={() => increase(1)} className="md:w-fit w-24 px-4 py-2 font-bold text-orange text-2xl md:text-lg">+</button>
+              <button
+                onClick={() => decrease(1)}
+                className="md:w-fit w-24 px-4 py-2 font-bold text-orange text-2xl md:text-lg"
+              >
+                -
+              </button>
+              <span className="md:w-6 w-full flex items-center justify-center px-4 md:py-3 py-5 font-bold md:text-sm text-lg">
+                {counter}
+              </span>
+              <button
+                onClick={() => increase(1)}
+                className="md:w-fit w-24 px-4 py-2 font-bold text-orange text-2xl md:text-lg"
+              >
+                +
+              </button>
             </div>
             <button
               onClick={() => addToCart()}
@@ -86,6 +106,7 @@ export default function ProductDetails({ product }: { product: Products }) {
           createPortal(
             <ImageModal
               image={product.images.desktop[image]}
+              images={product.images.desktop}
               closeModal={() => setModal(false)}
             />,
             document.body
