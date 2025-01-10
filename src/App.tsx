@@ -2,10 +2,10 @@ import Header from "./components/Header";
 import ProductDetails from "./components/ProductDetails";
 import { Products } from "./interfaces/products";
 import PRODUCTS from "./data.json";
-
+import { useLocalStore } from "./hooks/useLocalStore";
 
 export default function App() {
-
+  useLocalStore();
   const products: Products[] = PRODUCTS;
 
   return (
