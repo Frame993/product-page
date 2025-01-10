@@ -5,18 +5,20 @@ export const useLocalStore = () => {
   const cart = useCart((state) => state.cart);
   const counter = useCart((state) => state.counter);
 
+
   useEffect(() => {
-    const cart = localStorage.getItem("cart");
-    const counter = localStorage.getItem("counter");
-    if (cart && counter) {
-      useCart.getState().counter = JSON.parse(counter);
-      useCart.getState().cart = JSON.parse(cart);
+    const localCart = localStorage.getItem("cart");
+    const localCounter = localStorage.getItem("counter");
+
+    if (localCart && localCounter ) {
+      useCart.setState({ cart: JSON.parse(localCart) });
+      useCart.setState({ counter: JSON.parse(localCounter) });
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(useCart.getState().cart));
-    localStorage.setItem("counter", JSON.stringify(useCart.getState().counter));
-
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("counter", JSON.stringify(counter));
   }, [cart, counter]);
+
 };
